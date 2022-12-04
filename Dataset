@@ -1,0 +1,74 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import sklearn as ak
+#from sklearn import cross_validation 
+from sklearn import model_selection
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+Data=pd.read_csv('DS_01.csv')
+Data
+Data.head()
+
+Data.info()
+Data.describe()
+What can we infer from the above describe function ?
+
+1.Look at the bedroom columns , the dataset has a house where the house has 43 bedrooms , seems to be a massive house and would be interesting to know more about it as we progress.
+2.Maximum square feet is 1500 where as the minimum is 402. we can see that the data is distributed.
+
+Data.shape
+Data.corr()
+Which is the most common house (Bedroom wise) ?
+plt.figure(figsize=(10,10))
+sns.jointplot(x=Data.latitude.values, y=Data.longitude,size=10)
+plt.ylabel('Longitude', fontsize=12)
+plt.xlabel('Latitude', fontsize=12)
+plt.show()
+sns.despine
+ common factors are affecting the price of the houses
+plt.scatter(Data.House_price_of_unit_area , Data.House_size_sqft)
+plt.title("Price vs square Feet")
+plt.scatter(Data.House_price_of_unit_area , Data.longitude)
+plt.title("Price vs Location of the houses")
+plt.scatter(Data.House_price_of_unit_area , Data.latitude)
+plt.title("Price vs Location of the houses")
+plt.scatter(Data.Number_of_bedrooms, Data.House_price_of_unit_area)
+plt.title("Price vs Number_of_bedroom")
+plt.xlabel('Number_of_bedroom')
+plt.ylabel('Price')
+plt.show()
+We can see more factors affecting the price
+plt.scatter(Data.House_price_of_unit_area,Data.House_Age )
+plt.title("Price vs House age")
+plt.scatter(Data.House_price_of_unit_area,Data.Distance_from_nearest_Metro_station_km)
+plt.title("Price vs Distance_from_nearest_Metro_station_km")
+plt.scatter(Data.Number_of_convenience_stores,Data.House_price_of_unit_area)
+plt.title("Price vs Number_of_convenience_stores")
+plt.xlabel('Number_of_convenience_stores')
+plt.ylabel('Price')
+plt.show()
+Data.head()
+Linear Regression
+import mpl_toolkits
+%matplotlib inline
+from sklearn.linear_model import LinearRegression
+reg=LinearRegression()
+labels = Data['House_price_of_unit_area']
+conv_dates=[1 if values == 2013.583 else 0 for values in Data.Transaction_date]
+Data['date']=conv_dates
+train1=Data.drop['Number_of_bedrooms','House_price_of_unit_area'], axis=1
+from sklearn.cross_validation import train_test_split
+x_train, x_test, y_train, y_test =train_test_split(train1,labels,test_size=0.10,random_state=2)
+reg.fit(x_train,y_train)
+reg.score(x_test,y_test)
+from sklearn import ensemble
+clf=ensemble.GradientBoostingClassifier(n_estimators=400, max_depth=5,min_samples_split=2,learning_rate=0.1,loss='ls')
+
+clf.fit(x_train,y_traing)
+GradientBoostingRegressor(alpha=0.9,criterion='friedman_mse',init=None,learing_rate=0.1, loss='ls',depth=5,
+max_features=None,min_samples_leaf=1, min_samples_split=2, min_wieght_fraction_leaf=0.0, n_estimators=400,presot='auto',
+random_state=None, subsample=1.0,verbose=0,warm_start=False)
+clf.score(x_test,y_test)
+Thank you
